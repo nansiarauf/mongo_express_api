@@ -13,6 +13,7 @@ const clientSchema = mongoose.Schema(
     },
     dob: {
       type: String,
+      // Date: true,
     },
     age: {
       type: Number,
