@@ -12,6 +12,7 @@ const app = express();
 connectDb();
 
 //MIDDLEWARES
+app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -19,9 +20,7 @@ app.use(express.json());
 app.use("/api/client/info", clientRoutes);
 
 app.get("/", (req, res) => {
-  res.send(
-    "<h1>MONGO AND EXPRESS IN ACTION</h1>"
-  );
+  res.send("<h1>MONGO AND EXPRESS IN ACTION</h1>");
 });
 
 const port = process.env.PORT || 7000;

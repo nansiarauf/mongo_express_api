@@ -8,9 +8,8 @@ const Joi = require("joi");
 // module.exports = { validateAddUser };
 
 const validateClient = new Joi.object({
-  username: Joi.string().required().min(5),
-  // email: Joi.string().email().required().min(8),
-  password: Joi.string().required().min(5),
+  name: Joi.string().required().min(5),
+  email: Joi.string().email().required().min(8),
 });
 
 module.exports = { validateClient };

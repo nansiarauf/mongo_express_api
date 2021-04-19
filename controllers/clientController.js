@@ -6,16 +6,12 @@ const jwt = require("jsonwebtoken");
 //POST METHOD--adding data to the DB
 const addClientInfo = async (req, res) => {
   //VALIDATION
-  const { error } = validateAddUser.validate(req.body);
+  const { error } = validateClient.validate(req.body);
   //CATCHING ERRORS AND RESPONDING
   if (error) return res.send(error.details[0].message);
-  //SETTING COMPLEXITY LEVEL
-  const salt = await bcrypt.genSalt(10);
-  //HASHING THE PASSWORD
-  const hashedPass = await bcrypt.hash(req.body.password, salt);
 
-  const username = await User.findOne({ username: req.body.username });
-  if (username) return res.status(403).send("username already exists");
+  const email = await User.findOne({ email: req.body.email });
+  if (email) return res.status(403).send("username already exists");
 
   const newClientInfo = new clientInfo({
     // name: "tom",
@@ -48,6 +44,7 @@ const getAclient = async (req, res) => {
   //creating a variable called aClient hold the record to be accessed using the "findById method"
   const aClient = await clientInfo.findById(req.params._id);
   res.json(aClient);
+  // if (!aClient) return res.status(404).send("client not found");
 };
 
 //MAKING AN UPDATE TO A CLIENT INFO
