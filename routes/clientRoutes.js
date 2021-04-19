@@ -6,7 +6,8 @@ const { addClientInfo, getAllClients, getAclient, updateClientInfo, deleteClient
 const router = express.Router();
 
 //assigning routes to the controllers
-router.route("/").post(addClientInfo).get(getAllClients);
+router.route("/").post(addClientInfo);
+router.route("/").get(getAllClients);
 router.route("/:_id").get(getAclient).put(updateClientInfo).delete(deleteClient);
 
 module.exports = router;

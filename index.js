@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const connectDb = require("./config/dbConnect");
 const clientRoutes = require("./routes/clientRoutes");
+const usersRoutes = require("./routes/usersRoute");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/client/info", clientRoutes);
+app.use("/api/client/", usersRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>MONGO AND EXPRESS IN ACTION</h1>");

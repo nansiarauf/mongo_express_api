@@ -10,7 +10,8 @@ const addClientInfo = async (req, res) => {
   //CATCHING ERRORS AND RESPONDING
   if (error) return res.send(error.details[0].message);
 
-  const email = await User.findOne({ email: req.body.email });
+  //CHECKING EMAIL OF NEW CLIENT
+  const email = await clientInfo.findOne({ email: req.body.email });
   if (email) return res.status(403).send("username already exists");
 
   const newClientInfo = new clientInfo({

@@ -4,7 +4,7 @@ const { model, Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
     },
@@ -24,4 +24,4 @@ const userSchema = new Schema(
 
 //CREATING A MODEL USER
 const User = model("User", userSchema);
-module.exports = user;
+module.exports = User;
