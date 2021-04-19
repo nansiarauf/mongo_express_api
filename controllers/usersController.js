@@ -17,6 +17,10 @@ const addUser = async (req, res) => {
   //FIND USER FROM DATABASE
   const foundEmail = await User.findOne({ email: req.body.email });
   if (foundEmail) return res.status(403).send("email already exist");
+  //CHECKING USERNAME
+  const foundUsername = await User.findOne({ username: req.body.username });
+  if (foundUsername) return res.status(403).send("username taken already");
+
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
