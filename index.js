@@ -16,6 +16,7 @@ connectDb();
 // app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
 
 //ROUTES
 app.use("/api/client/info", clientRoutes);
