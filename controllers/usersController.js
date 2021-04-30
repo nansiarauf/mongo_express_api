@@ -40,5 +40,7 @@ const userLogin = async (req, res) => {
   //VERIFY PASSWORD
   const verifiedPass = await bcrypt.compare(req.body.password, user.password);
   if (!verifiedPass) return res.status(404).send("Invalid email or password ");
+
+  res.status(202).json({ _id: user._id, username: user.username, email: user.email, token: createToken(user._id) });
 };
 module.exports = { addUser, userLogin };
