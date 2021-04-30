@@ -1,7 +1,7 @@
 const User = require("../models/usersSchema");
 const bcrypt = require("bcryptjs");
 const { validateAddUser } = require("../utils/userValidations");
-const jwt = require("jsonwebtoken");
+const createToken = require("../utils/createToken");
 
 //ADDING A USER
 const addUser = async (req, res) => {
@@ -30,19 +30,15 @@ const addUser = async (req, res) => {
     // password,
   });
   await newUser.save();
-  res.status(201).json(newUser);
+  res.status(201).json({ _id: newUser._id, username: newUser.username, email: newUser.email, token: createToken(newUser._id) });
 };
 const userLogin = async (req, res) => {
   //USER VERIFICATION
-  const client = await User.findOne({ email: req.body.email });
-  if (!client) return res.status(404).send("client account not found");
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return res.status(404).send("user account not found");
 
   //VERIFY PASSWORD
-  const verifiedPass = await bcrypt.compare(req.body.password, client.password);
+  const verifiedPass = await bcrypt.compare(req.body.password, user.password);
   if (!verifiedPass) return res.status(404).send("Invalid email or password ");
-
-  //ASSIGN TOKEN
-  const token_id = jwt.sign({ _id: client._id }, process.env.SECRET_KEY, { expiresIn: "30d" });
-  res.header("authorization", token_id).send(token_id);
 };
 module.exports = { addUser, userLogin };
